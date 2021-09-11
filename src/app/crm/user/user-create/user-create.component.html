@@ -1,0 +1,49 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <h1 mat-dialog-title>{{data.viewMode ? 'Ver usuario' : 'Crear usuario'}}</h1>
+    <div mat-dialog-content>
+        <p>{{data.viewMode ? 'Datos del usuario seleccionado' : 'añadir nuevo usuario'}}</p>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Usuario</mat-label>
+            <input formControlName="userName" matInput name="userName" id="userName">
+            <mat-error *ngIf="errorHandling('userName','required')">El nombre de usuario no puede ser vacio</mat-error>
+            <mat-error *ngIf="errorHandling('userName','minlength')">El nombre de usuario muy corto</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Correo</mat-label>
+            <input formControlName="mail" matInput name="mail" id="mail">
+            <mat-error *ngIf="errorHandling('mail','required')">El apellido no puede ser vacio</mat-error>
+            <mat-error *ngIf="errorHandling('mail','maxlength')">El apellid es demasiado largo</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="name" matInput name="name" id="name">
+            <mat-error *ngIf="errorHandling('name','required')">El nombre no puede ser vacio</mat-error>
+            <mat-error *ngIf="errorHandling('name','maxlength')">El nombre es demasiado largo</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Apellido</mat-label>
+            <input formControlName="lastName" matInput name="lastName" id="lastName">
+            <mat-error *ngIf="errorHandling('lastName','required')">El apellido no puede ser vacio</mat-error>
+            <mat-error *ngIf="errorHandling('lastName','maxlength')">El apellid es demasiado largo</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="state" id="state" name="state">
+              <mat-option [value]=true>Activo</mat-option>
+              <mat-option [value]=false>Inactivo</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div *ngIf="!data.viewMode" mat-dialog-actions align="end">
+        <button type="button" mat-button (click)="onClose()">Cancelar</button>
+        <button mat-button cdkFocusInitial [disabled]="!userForm.valid">Guardar</button>
+    </div>
+    <div *ngIf="data.viewMode" mat-dialog-actions align="end">
+        <button type="button" mat-button (click)="onClose()">Cerrar</button>
+    </div>
+</form>
